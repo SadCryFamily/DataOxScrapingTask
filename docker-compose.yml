@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  postgres:
+    image: 'postgres:14-alpine'
+    container_name: 'postgres_db'
+    environment:
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=deploymentPostgresPassword'
+      - 'POSTGRES_DB=jobs'
+    networks:
+      - 'dataox-network'
+
+  app:
+    build: ./
+    container_name: 'spring_scraping_project'
+    depends_on:
+      - 'postgres'
+    ports:
+      - '8080:8080'
+    networks:
+      - 'dataox-network'
+
+networks:
+  dataox-network:
+    driver: 'bridge'
