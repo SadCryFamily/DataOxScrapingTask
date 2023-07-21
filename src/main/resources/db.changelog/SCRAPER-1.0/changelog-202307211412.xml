@@ -45,4 +45,32 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="2" author="Semen Gulenko">
+        <createTable tableName="preview_job">
+            <column name="p_job_id" type="bigserial">
+                <constraints primaryKeyName="pk_p_job_id" primaryKey="true"/>
+            </column>
+
+            <column name="p_job_title" type="text">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="p_job_employer" type="text">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="p_job_address" type="text">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="p_job_posted_time" type="date">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="p_job_tags" type="text []">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

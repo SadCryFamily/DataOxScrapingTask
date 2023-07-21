@@ -1,6 +1,6 @@
 package com.example.task.entity;
 
-import com.example.task.enums.JobFunction;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "job")
+@Builder
 @Data
 public class Job {
 
