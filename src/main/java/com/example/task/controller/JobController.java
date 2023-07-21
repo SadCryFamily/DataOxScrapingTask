@@ -5,6 +5,7 @@ import com.example.task.pojo.PreviewJobReport;
 import com.example.task.service.JobService;
 import com.example.task.service.PreviewJobService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,12 +19,12 @@ public class JobController {
     @Autowired
     private JobService jobService;
 
-    @PostMapping("/detailed-jobs")
+    @GetMapping("/detailed-jobs")
     public DetailedJobReport retrieveDetailedJobsInfoBy(@RequestParam("function") String jobFunction) {
         return jobService.retrieveDetailedJobsInfoBy(jobFunction);
     }
 
-    @PostMapping("/minimized-jobs")
+    @GetMapping("/minimized-jobs")
     public PreviewJobReport retrieveMinimizedJobsInfoBy(@RequestParam("function") String jobFunction) {
         return previewJobService.retrieveMinimizedJobsInfoBy(jobFunction);
     }
