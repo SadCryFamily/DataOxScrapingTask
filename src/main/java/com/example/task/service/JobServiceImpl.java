@@ -21,16 +21,14 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
+import static com.example.task.util.ConnectionUtil.fetchHtml;
+
 @Service
 @Slf4j
 public class JobServiceImpl implements JobService {
 
     @Autowired
     private JobRepository jobRepository;
-
-    private static final int JOBS_PER_PAGE = 20;
-
-    private static int totalRetrievedJobs;
 
     @Override
     public DetailedJobReport retrieveDetailedJobsInfoBy(String jobFunction) {
@@ -39,15 +37,13 @@ public class JobServiceImpl implements JobService {
 
         OkHttpClient okHttpClient = new OkHttpClient();
 
-        List<String> jobLinks = new CopyOnWriteArrayList<>();
-
-        int efficientJobPages = calculateActivePages(okHttpClient, jobFunctionUrl);
-        String urlWithPage = jobFunctionUrl + "&page=" + efficientJobPages;
-        String html = fetchHtml(okHttpClient, urlWithPage);
+        String html = fetchHtml(okHttpClient, jobFunctionUrl);
 
         Document jobsDocument = Jsoup.parse(html);
 
         Elements vacancyElements = jobsDocument.select(".job-info");
+
+        List<String> jobLinks = new CopyOnWriteArrayList<>();
 
         for (Element vacancy : vacancyElements) {
             String jobLink = vacancy.select("h4[class=sc-beqWaB kKIsob] a").attr("href");
@@ -103,34 +99,5 @@ public class JobServiceImpl implements JobService {
                 .jobPostedDate(DateConverterUtil.convertStringToLocalDate(positionPostedDate))
                 .jobDescription(positionDescription).build();
 
-    }
-
-    private static String fetchHtml(OkHttpClient client, String url) {
-
-        String fetchedHtml = "";
-
-        try {
-
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-
-            Response response = client.newCall(request).execute();
-
-            fetchedHtml = response.body().string();
-        } catch (IOException e) {
-            e.getLocalizedMessage();
-        }
-
-        return fetchedHtml;
-    }
-
-    private static int calculateActivePages(OkHttpClient okHttpClient, String jobFunction) {
-
-        Document counterJobsDocument = Jsoup.parse(fetchHtml(okHttpClient, jobFunction));
-
-        totalRetrievedJobs =
-                Integer.parseInt(counterJobsDocument.select("div[data-testid=header] b").text());
-        return (totalRetrievedJobs % JOBS_PER_PAGE);
     }
 }

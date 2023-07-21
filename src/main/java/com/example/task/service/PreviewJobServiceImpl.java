@@ -7,8 +7,6 @@ import com.example.task.util.DateConverterUtil;
 import com.example.task.util.JobFunctionUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,9 +14,10 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.task.util.ConnectionUtil.fetchHtml;
 
 @Service
 @Slf4j
@@ -38,15 +37,14 @@ public class PreviewJobServiceImpl implements PreviewJobService {
 
         OkHttpClient okHttpClient = new OkHttpClient();
 
-        List<PreviewJob> previewJobList = new ArrayList<>();
-
-        int efficientJobPages = calculateActivePages(okHttpClient, jobFunctionUrl);
-        String urlWithPage = jobFunctionUrl + "&page=" + efficientJobPages;
-        String html = fetchHtml(okHttpClient, urlWithPage);
+        int efficientJobPages = parseTotalJobValue(okHttpClient, jobFunctionUrl);
+        String html = fetchHtml(okHttpClient, jobFunctionUrl);
 
         Document jobsDocument = Jsoup.parse(html);
 
         Elements vacancyElements = jobsDocument.select(".job-info");
+
+        List<PreviewJob> previewJobList = new ArrayList<>();
 
         for (Element vacancyElement : vacancyElements) {
 
@@ -85,32 +83,10 @@ public class PreviewJobServiceImpl implements PreviewJobService {
 
     }
 
-    private static String fetchHtml(OkHttpClient client, String url) {
-
-        String fetchedHtml = "";
-
-        try {
-
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-
-            Response response = client.newCall(request).execute();
-
-            fetchedHtml = response.body().string();
-        } catch (IOException e) {
-            e.getLocalizedMessage();
-        }
-
-        return fetchedHtml;
-    }
-
-    private static int calculateActivePages(OkHttpClient okHttpClient, String jobFunction) {
-
+    private static int parseTotalJobValue(OkHttpClient okHttpClient, String jobFunction) {
         Document counterJobsDocument = Jsoup.parse(fetchHtml(okHttpClient, jobFunction));
+        totalRetrievedJobs = Integer.parseInt(counterJobsDocument.select("div[data-testid=header] b").text());
 
-        totalRetrievedJobs =
-                Integer.parseInt(counterJobsDocument.select("div[data-testid=header] b").text());
-        return (totalRetrievedJobs % JOBS_PER_PAGE);
+        return totalRetrievedJobs;
     }
 }
