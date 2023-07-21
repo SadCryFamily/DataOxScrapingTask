@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="Semen Gulenko">
+        <createTable tableName="job">
+            <column name="job_id" type="bigserial">
+                <constraints primaryKeyName="pk_job_id" primaryKey="true"/>
+            </column>
+            
+            <column name="job_name" type="text">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="job_url_to_employer" type="text">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="job_logo_link" type="text">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="job_organization_title" type="text">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="job_labor_function" type="text">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="job_address" type="text">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="job_posted_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="job_description" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
