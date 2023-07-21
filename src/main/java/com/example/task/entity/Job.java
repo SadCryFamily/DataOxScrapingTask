@@ -1,7 +1,9 @@
 package com.example.task.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Table(name = "job")
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Job {
 

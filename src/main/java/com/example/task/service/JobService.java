@@ -1,11 +1,9 @@
 package com.example.task.service;
 
-import com.example.task.entity.Job;
-
-import java.util.List;
+import com.example.task.pojo.DetailedJobReport;
 
 public interface JobService {
 
-    List<Job> retrieveDetailedJobsInfoBy(String jobFunction);
+    DetailedJobReport retrieveDetailedJobsInfoBy(String jobFunction);
 
 }

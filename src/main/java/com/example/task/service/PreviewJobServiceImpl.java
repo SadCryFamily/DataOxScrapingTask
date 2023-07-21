@@ -5,6 +5,7 @@ import com.example.task.pojo.PreviewJobReport;
 import com.example.task.repository.PreviewJobRepository;
 import com.example.task.util.DateConverterUtil;
 import com.example.task.util.JobFunctionUtil;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class PreviewJobServiceImpl implements PreviewJobService {
 
     @Autowired
@@ -71,6 +73,8 @@ public class PreviewJobServiceImpl implements PreviewJobService {
 
             previewJobList.add(previewJob);
         }
+
+        log.info("SAVED {} detailed jobs to database", previewJobList.size());
 
         previewJobRepository.saveAll(previewJobList);
 

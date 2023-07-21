@@ -1,14 +1,13 @@
 package com.example.task.controller;
 
-import com.example.task.entity.Job;
+import com.example.task.pojo.DetailedJobReport;
 import com.example.task.pojo.PreviewJobReport;
+import com.example.task.service.JobService;
 import com.example.task.service.PreviewJobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class JobController {
@@ -16,9 +15,12 @@ public class JobController {
     @Autowired
     private PreviewJobService previewJobService;
 
+    @Autowired
+    private JobService jobService;
+
     @PostMapping("/detailed-jobs")
-    public List<Job> retrieveDetailedJobsInfoBy(@RequestParam("function") String jobFunction) {
-        throw new UnsupportedOperationException();
+    public DetailedJobReport retrieveDetailedJobsInfoBy(@RequestParam("function") String jobFunction) {
+        return jobService.retrieveDetailedJobsInfoBy(jobFunction);
     }
 
     @PostMapping("/minimized-jobs")
