@@ -8,6 +8,7 @@ Dataox Scraping Project is a web scraping application built in Java that extract
 - **Usage Example**
 - **Technologies**
 - **Endpoints**
+- *Notice*
 
 ## Installation
 
@@ -104,3 +105,7 @@ The application provides the following endpoints:
 
   - `GET /detailed-jobs?function=text` - retrieves detailed job info list.
   - `GET /minimized-jobs?function=text` - retrieves minimized jobs info in list.
+
+## Notice ♻️
+
+Also, if you want to see the results of the program, you can follow this [link](https://drive.google.com/file/d/1i5r4LOZPwUJX7ddUv3MnGKsJFBJX9bud/view?usp=sharing) to google drive and download a backup with already parsed data. After that, you can copy the backup data to your database through PgAdmin
