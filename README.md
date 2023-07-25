@@ -8,20 +8,20 @@ Dataox Scraping Project is a web scraping application built in Java that extract
 - **Usage Example**
 - **Technologies**
 - **Endpoints**
-- *Notice*
+- **Notice**
 
 ## Installation
 
 Clone the repository to your local machine:
 
 ```git
-git clone https://github.com/your-username/dataoxscrapingproject.git
+git clone https://github.com/SadCryFamily/DataOxScrapingTask.git
 ```
 
 Navigate to the project directory:
 
 ```cmd
-cd dataoxscrapingproject
+cd DataOxScrapingTask
 ```
 
 Build the application
@@ -38,7 +38,7 @@ docker-compose up -d --build
 
 The application will be launched in multiple Docker containers: one container for the Spring Boot application and one for PostgreSQL database.
 
-After the application starts, it will be available to receiveing messages http://localhost:8080.
+As soon as application starts, it will be available to receiveing messages at http://localhost:8080.
 
 
 ## Usage Example
@@ -64,8 +64,8 @@ For example, make a GET request to localhost:8080/minimized-jobs?function=DataSc
                 "201 - 1000",
                 "Series C+"
             ]
-        },...
-    }
+        }, ...
+}
 ```
 
 For example, make a GET request to localhost:8080/detailed-jobs?function=DataSciece. Down here what we'll receive:
@@ -83,8 +83,8 @@ For example, make a GET request to localhost:8080/detailed-jobs?function=DataSci
             "jobAddress": "",
             "jobPostedDate": "2023-07-21",
             "jobDescription": "What’s Bench?..."
-        },...
-  }
+        }, ...
+}
 ```
 
 
